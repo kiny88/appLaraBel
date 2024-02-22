@@ -1,0 +1,93 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+@media(prefers-color-scheme: light){
+    $grisClarito: #f3f4f6;
+
+    body{
+        background-color: v.$blanco;
+    }
+
+    .imagen{
+        background-image: linear-gradient(#1a1b15, rgba(26, 27, 21, 0.5)),image-set(url(../img/2.webp) 1x, url(../img/2.jpg) 1x) !important;
+    }
+
+    .app{
+        h2,h3{
+            color: v.$grisOscuro;
+        }
+
+        .nombre-pagina,
+        .descripcion-pagina,
+        label{
+            color: v.$grisOscuro;
+        }
+
+        .alerta{
+            &.error{
+                background-color: lighten(v.$rojo,60%);
+                color: v.$rojo;
+                border-left: .5rem solid v.$rojo;
+            }
+        
+            &.exito{
+                background-color: lighten(v.$verde,60%);
+                border-left: .5rem solid v.$verde;
+                color: v.$verde;
+            }
+        }
+
+        .formulario{
+            .campo input{
+                background-color: $grisClarito;
+                color: v.$grisOscuro;
+
+                &:disabled{
+                    background-color: lighten(v.$negro, 50%);
+                    color: v.$blanco;
+                }
+            }
+        }
+
+        .acciones a{
+            color: v.$grisOscuro;
+
+            &:hover{
+                color: v.$violeta;
+            }
+        }
+    }
+
+    .barra{
+        p{
+            color: v.$grisOscuro;
+        }
+    }
+
+    .citas li,
+    .servicios li{
+        border-top: 1px solid v.$grisOscuro;
+    }
+
+    .citas li span, 
+    .servicios li span {
+        color: v.$grisOscuro;
+    }
+
+    .tabs button.actual{
+        background-color: v.$grisMedio;
+        color: v.$blanco;
+    }
+
+    .contenedor-servicio{
+        border-bottom: 1px solid v.$grisOscuro;
+
+        p{
+            color: v.$grisOscuro;
+        }
+    }
+
+    .contenido-resumen p{
+        color: v.$grisOscuro;
+    }
+}
