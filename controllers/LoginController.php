@@ -181,7 +181,9 @@ class LoginController{
     }
 
     public static function mensaje(Router $router){
-        $router->render('auth/mensaje');
+        $router->render('auth/mensaje',[
+            'titulo' => 'Mensaje de confirmación'
+        ]);
     }
 
     public static function confirmar(Router $router){
