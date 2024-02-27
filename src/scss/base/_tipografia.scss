@@ -25,13 +25,13 @@ p {
 
 .logo{
     font-family: v.$fuente_logo;
-    font-size: 9rem;
+    font-size: clamp(2rem,-0.8rem + 10vw,9rem);
     margin: 0;
 }
 
 .descripcion-logo{
     font-family: v.$fuente_logo;
-    font-size: 3rem;
+    font-size: clamp(1rem,-0.8rem + 10vw,3rem);
     text-align: center;
     margin: 0;
 }
