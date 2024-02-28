@@ -29,7 +29,7 @@ class Email{
 
         // Configurar el contenido del email
         $mail->setFrom('cuentas@larabel.com');
-        $mail->addAddress('cuentas@larabel.com','LaraBel.com');
+        $mail->addAddress($this->email,$this->nombre);
         $mail->Subject = 'Confirma tu cuenta';
 
         // Habilitar HTML
@@ -61,7 +61,7 @@ class Email{
 
         // Configurar el contenido del email
         $mail->setFrom('cuentas@larabel.com');
-        $mail->addAddress('cuentas@larabel.com','LaraBel.com');
+        $mail->addAddress($this->email,$this->nombre);
         $mail->Subject = 'Reestablece tu contraseña';
 
         // Habilitar HTML
