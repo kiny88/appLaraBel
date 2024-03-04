@@ -18,7 +18,7 @@ class Email{
 
     // Enivar confirmación del email
     public function enviarConfirmacion(){
-        $resend = Resend::client('re_5x1UfH6x_LNeFByjwm5t8g9WQWLU8p8cN');
+        $resend = Resend::client('re_Ka5Zo9bQ_M3kJ5h4myoupKL9eNC71Zoix');
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
@@ -31,7 +31,7 @@ class Email{
     }
 
     public function enviarInstrucciones(){
-        $resend = Resend::client('re_5x1UfH6x_LNeFByjwm5t8g9WQWLU8p8cN');
+        $resend = Resend::client('re_e2JNgaxQ_8jWwJkbZimgvt9rqSrBukoDi');
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
