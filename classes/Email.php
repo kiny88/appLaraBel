@@ -3,6 +3,7 @@
 namespace Classes;
 
 use PHPMailer\PHPMailer\PHPMailer;
+use Resend;
 
 class Email{
     public $nombre;
@@ -19,7 +20,7 @@ class Email{
     // Enivar confirmación del email
     public function enviarConfirmacion(){
         // Crear el objeto de email
-        $mail = new PHPMailer();
+        /*$mail = new PHPMailer();
         $mail->isSMTP();
         $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
@@ -28,7 +29,7 @@ class Email{
         $mail->Password = $_ENV['EMAIL_PASS'];
 
         // Configurar el contenido del email
-        $mail->setFrom('cuentas@larabel.com');
+        $mail->setFrom('info@larabel.com');
         $mail->addAddress($this->email,$this->nombre);
         $mail->Subject = 'Confirma tu cuenta';
 
@@ -46,7 +47,17 @@ class Email{
         $mail->Body = $contenido;
 
         // Enviar el email
-        $mail->send();
+        $mail->send();*/
+        $resend = Resend::client('re_5x1UfH6x_LNeFByjwm5t8g9WQWLU8p8cN');
+        
+        $resend->emails->send([
+            'from' => 'onboarding@resend.dev',
+            'to' => $this->email,
+            'subject' => 'Confirma tu cuenta',
+            'html' => "<p><strong>Hola " . $this->nombre . "</strong> Has creado tu cuenta en LaraBel Centro de Estética, solo debes confirmarla presionando el siguiente enlace</p>".
+                    "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/confirmar-cuenta?token=" . $this->token . "'>Confirmar Cuenta</a></p>".
+                    "<p>Si tu no solicitaste esta cuenta, puedes ignorar el mensaje</p>"
+        ]);
     }
 
     public function enviarInstrucciones(){
