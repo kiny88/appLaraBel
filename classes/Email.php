@@ -16,7 +16,7 @@ class Email{
         $this->token = $token;
     }
 
-    // Enivar confirmación del email
+    // Enviar confirmación del email
     public function enviarConfirmacion(){
         $resend = Resend::client('re_Ka5Zo9bQ_M3kJ5h4myoupKL9eNC71Zoix');
         
@@ -30,6 +30,7 @@ class Email{
         ]);
     }
 
+    // Enviar reestablecimiento de contraseña
     public function enviarInstrucciones(){
         $resend = Resend::client('re_e2JNgaxQ_8jWwJkbZimgvt9rqSrBukoDi');
         
