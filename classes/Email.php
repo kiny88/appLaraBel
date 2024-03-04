@@ -38,8 +38,8 @@ class Email{
             'to' => $this->email,
             'subject' => 'Reestablece tu contraseña',
             'html' => "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado reestablecer tu contraseña, sigue el siguiente enlace para hacerlo.</p>".
-            "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/recuperar?token=" . $this->token . "'>Reestablecer Contraseña</a></p>".
-            "<p>Si tu no solicitaste este cambio, puedes ignorar el mensaje</p>"
+                    "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/recuperar?token=" . $this->token . "'>Reestablecer Contraseña</a></p>".
+                    "<p>Si tu no solicitaste este cambio, puedes ignorar el mensaje</p>"
         ]);
     }
 }
