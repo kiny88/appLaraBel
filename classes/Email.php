@@ -62,7 +62,7 @@ class Email{
 
     public function enviarInstrucciones(){
         // Crear el objeto de email
-        $mail = new PHPMailer();
+        /*$mail = new PHPMailer();
         $mail->isSMTP();
         $mail->Host = $_ENV['EMAIL_HOST'];
         $mail->SMTPAuth = true;
@@ -89,6 +89,16 @@ class Email{
         $mail->Body = $contenido;
 
         // Enviar el email
-        $mail->send();
+        $mail->send();*/
+        $resend = Resend::client('re_5x1UfH6x_LNeFByjwm5t8g9WQWLU8p8cN');
+        
+        $resend->emails->send([
+            'from' => 'onboarding@resend.dev',
+            'to' => $this->email,
+            'subject' => 'Confirma tu cuenta',
+            'html' => "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado reestablecer tu contraseña, sigue el siguiente enlace para hacerlo.</p>".
+            "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/recuperar?token=" . $this->token . "'>Reestablecer Contraseña</a></p>".
+            "<p>Si tu no solicitaste este cambio, puedes ignorar el mensaje</p>"
+        ]);
     }
 }
