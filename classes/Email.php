@@ -32,7 +32,7 @@ class Email{
 
     // Enviar reestablecimiento de contraseña
     public function enviarInstrucciones(){
-        $resend = Resend::client('re_e2JNgaxQ_8jWwJkbZimgvt9rqSrBukoDi');
+        $resend = Resend::client('re_6KS4kMbX_LfeAbyMjJqikQcsW3VJ5HS4k');
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
