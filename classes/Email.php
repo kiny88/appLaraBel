@@ -18,7 +18,7 @@ class Email{
 
     // Enviar confirmación del email
     public function enviarConfirmacion(){
-        $resend = Resend::client('re_6KS4kMbX_LfeAbyMjJqikQcsW3VJ5HS4k');
+        $resend = Resend::client('re_WaZZA2DK_A17DnAByCBj2Tj9YPfGzctNh');
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
@@ -32,7 +32,7 @@ class Email{
 
     // Enviar reestablecimiento de contraseña
     public function enviarInstrucciones(){
-        $resend = Resend::client('re_6KS4kMbX_LfeAbyMjJqikQcsW3VJ5HS4k');
+        $resend = Resend::client('re_UcBM9E8Q_6GGAcaW9sLqT6Ta4sdNQkfkN');
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
