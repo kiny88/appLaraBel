@@ -2,7 +2,7 @@
 @use 'base/mixins' as m;
 
 .contenedor-app{
-    @include m.tablet{
+    @include m.desktop{
         display: grid;
         grid-template-columns: repeat(2,1fr);
         min-height: 91vh;
@@ -17,7 +17,7 @@
         flex-direction: column;
         justify-content: center;
 
-        @include m.tablet{
+        @include m.desktop{
             height: auto;
         }
     }
