@@ -18,11 +18,11 @@ class Email{
 
     // Enviar confirmación del email
     public function enviarConfirmacion(){
-        $resend = Resend::client('re_Ka5Zo9bQ_M3kJ5h4myoupKL9eNC71Zoix');
+        $resend = Resend::client('re_6KS4kMbX_LfeAbyMjJqikQcsW3VJ5HS4k');
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
-            'to' => $this->email,
+            'to' => 'larabelcentroestetica@gmail.com',
             'subject' => 'Confirma tu cuenta',
             'html' => "<p><strong>Hola " . $this->nombre . "</strong> Has creado tu cuenta en LaraBel Centro de Estética, solo debes confirmarla presionando el siguiente enlace</p>".
                     "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/confirmar-cuenta?token=" . $this->token . "'>Confirmar Cuenta</a></p>".
@@ -36,7 +36,7 @@ class Email{
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
-            'to' => $this->email,
+            'to' => 'larabelcentroestetica@gmail.com',
             'subject' => 'Reestablece tu contraseña',
             'html' => "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado reestablecer tu contraseña, sigue el siguiente enlace para hacerlo.</p>".
                     "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/recuperar?token=" . $this->token . "'>Reestablecer Contraseña</a></p>".
