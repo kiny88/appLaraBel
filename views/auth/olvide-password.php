@@ -1,5 +1,5 @@
 <h1 class="nombre-pagina">Olvidé Contraseña</h1>
-<p class="descripcion-pagina">Reestablece tu contraseña escribiendo tu email a continuación</p>
+<p class="descripcion-pagina">Restablece tu contraseña escribiendo tu email a continuación</p>
 <?php
     include_once __DIR__ . "/../templates/alertas.php";
 ?>
