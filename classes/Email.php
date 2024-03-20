@@ -18,7 +18,7 @@ class Email{
 
     // Enviar confirmación del email
     public function enviarConfirmacion(){
-        $resend = Resend::client('re_WaZZA2DK_A17DnAByCBj2Tj9YPfGzctNh');
+        $resend = Resend::client($_ENV['EMAIL_API_CONFIRMACION']);
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
@@ -32,14 +32,14 @@ class Email{
 
     // Enviar reestablecimiento de contraseña
     public function enviarInstrucciones(){
-        $resend = Resend::client('re_UcBM9E8Q_6GGAcaW9sLqT6Ta4sdNQkfkN');
+        $resend = Resend::client($_ENV['EMAIL_API_INSTRUCCIONES']);
         
         $resend->emails->send([
             'from' => 'onboarding@resend.dev',
             'to' => 'larabelcentroestetica@gmail.com',
-            'subject' => 'Reestablece tu contraseña',
-            'html' => "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado reestablecer tu contraseña, sigue el siguiente enlace para hacerlo.</p>".
-                    "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/recuperar?token=" . $this->token . "'>Reestablecer Contraseña</a></p>".
+            'subject' => 'Restablece tu contraseña',
+            'html' => "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado restablecer tu contraseña, sigue el siguiente enlace para hacerlo.</p>".
+                    "<p>Presiona aquí: <a href='" . $_ENV['APP_URL'] . "/recuperar?token=" . $this->token . "'>Restablecer Contraseña</a></p>".
                     "<p>Si tu no solicitaste este cambio, puedes ignorar el mensaje</p>"
         ]);
     }

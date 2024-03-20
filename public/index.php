@@ -44,7 +44,7 @@ $router->get('/404',[PaginaController::class, 'error']);
 $router->get('/cita',[CitaController::class, 'index']);
 $router->get('/admin',[AdminController::class, 'index']);
 
-// API de Citas
+// API de Citas/Servicios
 $router->get('/api/servicios',[APIController::class, 'index']);
 $router->post('/api/citas',[APIController::class, 'guardar']);
 $router->post('/api/eliminar',[APIController::class, 'eliminar']);
