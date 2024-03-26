@@ -340,9 +340,7 @@ async function reservarCita(){
                 text: 'Tu cita fue creada correctamente',
                 button: 'OK'
             }).then(() => {
-                setTimeout(() => {
-                    window.location.reload();
-                },3000);
+                window.location.reload();
             });
         }
     }catch(error){

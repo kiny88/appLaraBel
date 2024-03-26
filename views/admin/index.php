@@ -51,7 +51,7 @@
             <p class="total">Total: <span><?php echo $total; ?>€</span></p>
             <form action="/api/eliminar" method="POST">
                 <input type="hidden" name="id" value="<?php echo $cita->id; ?>">
-                <input type="submit" value="Eliminar" class="boton-eliminar">
+                <input type="button" value="Eliminar" class="boton-eliminar" onclick="confirmEliminarCita(form)">
             </form>
         <?php 
                 }
@@ -60,5 +60,8 @@
     </ul>
 </div>
 <?php
-    $script = "<script src='build/js/buscador.js'></script>";
+    $script = "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script src='build/js/buscador.js'></script>
+        <script src='build/js/confirmaciones.js'></script>";
 ?>

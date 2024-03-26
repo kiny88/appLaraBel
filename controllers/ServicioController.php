@@ -86,24 +86,16 @@ class ServicioController{
         ]);
     }
 
-    public static function eliminar(Router $router){
+    public static function eliminar(){
         session_start();
         isAdmin();
-        $alertas = [];
         
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $id = $_POST['id'];
             $servicio = Servicio::find($id);
             $servicio->eliminar();
-            $alertas = Servicio::setAlerta('exito','Servicio eliminado correctamente');
-            header('refresh: 2; url=/servicios');
+            
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
-
-        $alertas = Servicio::getAlertas();
-
-        $router->render('servicios/eliminar',[
-            'nombre' => $_SESSION['nombre'],
-            'alertas' => $alertas
-        ]);
     }
 }

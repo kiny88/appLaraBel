@@ -13,9 +13,14 @@
                 <a href="/servicios/actualizar?id=<?php echo $servicio->id; ?>" class="boton-actualizar">Actualizar</a>
                 <form action="/servicios/eliminar" method="POST">
                     <input type="hidden" name="id" value="<?php echo $servicio->id; ?>">
-                    <input type="submit" value="Borrar" class="boton-eliminar">
+                    <input type="button" value="Borrar" class="boton-eliminar" onclick="confirmEliminarServicio(form)">
                 </form>
             </div>
         </li>
     <?php } ?>
 </ul>
+<?php
+    $script = "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script src='build/js/confirmaciones.js'></script>";
+?>
