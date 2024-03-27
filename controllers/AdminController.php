@@ -19,9 +19,12 @@ class AdminController{
         }
 
         // Consultar la base de datos
-        $consulta = "SELECT citas.id, citas.hora, CONCAT( usuarios.nombre, ' ', usuarios.apellido) AS cliente, ";
-        $consulta .= " usuarios.email, usuarios.telefono, servicios.nombre as servicio, servicios.precio  ";
+        $consulta = "SELECT citas.id, CONCAT( usuarios.nombre, ' ', usuarios.apellido) AS cliente, ";
+        $consulta .= " usuarios.email, usuarios.telefono, servicios.nombre AS servicio, servicios.precio, ";
+        $consulta .= " horas.hora AS hora ";
         $consulta .= " FROM citas  ";
+        $consulta .= " LEFT OUTER JOIN horas ";
+        $consulta .= " ON horas.id=citas.horaId ";
         $consulta .= " LEFT OUTER JOIN usuarios ";
         $consulta .= " ON citas.usuarioId=usuarios.id  ";
         $consulta .= " LEFT OUTER JOIN citasServicios ";

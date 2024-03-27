@@ -15,7 +15,7 @@
         <div id="servicios" class="listado-servicios"></div>
     </div>
     <div id="paso-2" class="seccion">
-        <h2>Tus datos y Cita</h2>
+        <h2>Tus Datos y Cita</h2>
         <p class="text-center">Coloca tus datos y fecha de tu cita</p>
         <form action="" class="formulario">
             <div class="campo">
@@ -28,28 +28,9 @@
             </div>
             <div class="campo">
                 <label for="hora">Hora</label>
-                <input type="time" name="hora" id="hora" list="lista">
-                <datalist id="lista">
-                    <option value="10:00">
-                    <option value="10:30">
-                    <option value="11:00">
-                    <option value="11:30">
-                    <option value="12:00">
-                    <option value="12:30">
-                    <option value="13:30">
-                    <option value="14:00">
-                    <option value="14:30">
-                    <option value="15:00">
-                    <option value="15:30">
-                    <option value="16:00">
-                    <option value="16:30">
-                    <option value="17:00">
-                    <option value="17:30">
-                    <option value="18:00">
-                    <option value="18:30">
-                    <option value="19:00">
-                    <option value="19:30">
-                </datalist>
+                <select id="hora">
+                    <option value="">-- Selecciona --</option>
+                </select>
             </div>
             <input type="hidden" id="id" value="<?php echo $id; ?>">
         </form>

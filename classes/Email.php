@@ -2,7 +2,13 @@
 
 namespace Classes;
 
+use Dotenv\Dotenv;
 use Resend;
+
+// Busca el archivo .env para poder cargar las variables de entorno
+$dotenv = Dotenv::createImmutable('../includes/.env');
+// carga las variables de entorno de manera segura sin sobreescribir si ya están definidas
+$dotenv->safeLoad();
 
 class Email{
     public $nombre;

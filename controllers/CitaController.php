@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-use Model\Cita;
 use MVC\Router;
 
 class CitaController{

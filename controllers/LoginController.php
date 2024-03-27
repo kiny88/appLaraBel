@@ -10,6 +10,9 @@ class LoginController{
     public static function login(Router $router){
         $alertas = [];
 
+        // Autocompletar usuario si hay un error
+        $auth = new Usuario;
+
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $auth = new Usuario($_POST);
 
@@ -197,6 +200,7 @@ class LoginController{
         }else{
             // Modificar a usuario confirmado
             $usuario->confirmado = 1;
+            // Eliminar el token confirmado
             $usuario->token = '';
             $usuario->guardar();
             Usuario::setAlerta('exito','Cuenta Comprobada Correctamente');

@@ -118,7 +118,7 @@ class ActiveRecord{
 
     // Busca un registro por su id
     public static function find($id){
-        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = $id";
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE id = {$id}";
         $resultado = self::consultarSQL($query);
 
         return array_shift($resultado) ;
@@ -126,18 +126,26 @@ class ActiveRecord{
 
     // Obtener Registros con cierta cantidad
     public static function get($limite){
-        $query = "SELECT * FROM " . static::$tabla . " LIMIT $limite";
+        $query = "SELECT * FROM " . static::$tabla . " LIMIT {$limite}";
         $resultado = self::consultarSQL($query);
 
         return array_shift($resultado) ;
     }
 
-    // Busca un registro por su token
+    // Busca un registro por su id
     public static function where($columna,$valor){
-        $query = "SELECT * FROM " . static::$tabla  ." WHERE $columna = '$valor'";
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE {$columna} = '{$valor}'";
         $resultado = self::consultarSQL($query);
 
         return array_shift($resultado) ;
+    }
+
+    // Where and
+    public static function whereAnd($columna1, $valor1, $columna2, $valor2) {
+        $query = "SELECT * FROM " . static::$tabla  ." WHERE {$columna1} = '{$valor1}' AND {$columna2} = '{$valor2}'";
+        $resultado = self::consultarSQL($query);
+
+        return array_shift( $resultado ) ;
     }
 
     // Consulta plana de SQL (utilizar cuando los métodos del modelo no son suficientes)
@@ -198,5 +206,4 @@ class ActiveRecord{
         
         return $resultado;
     }
-
 }

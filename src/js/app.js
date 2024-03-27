@@ -1,6 +1,7 @@
 let paso = 1;
-const pasoInicial = 1;
-const pasoFinal = 3;
+let pasoInicial = 1;
+let pasoFinal = 3;
+
 const cita = {
     id: '',
     nombre: '',
@@ -123,6 +124,17 @@ async function consultarAPI(){
     }catch(error){
         console.log(error);
     }
+
+    try {
+        const url = `${location.origin}/api/horas`;
+        const resultado = await fetch(url);
+        const horas = await resultado.json();
+
+        mostrarHoras(horas);
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function mostrarServicios(servicios){
@@ -185,7 +197,7 @@ function nombreCliente(){
 function seleccionarFecha(){
     const inputFecha = document.querySelector('#fecha');
 
-    inputFecha.addEventListener('input',function(e){
+    inputFecha.addEventListener('change',function(e){
         const dia = new Date(e.target.value).getUTCDay();
         
         if([6,0].includes(dia)){
@@ -193,22 +205,65 @@ function seleccionarFecha(){
             mostrarAlerta('Fines de semana no permitidos','error','.formulario');
         }else{
             cita.fecha = e.target.value;
+            deshabilitarHoras();
         }
     });
 }
 
-function seleccionarHora(){
-    const inputHora = document.querySelector('#hora');
-    inputHora.addEventListener('input',function(e){
-        const horaCita = e.target.value;
-        const hora = horaCita.split(":")[0];
+async function deshabilitarHoras(){
+    try{
+        const url = `${location.origin}/api/horasdisponibles?fecha=${cita.fecha}`;
+        const resultado = await fetch(url);
+        const horasNoDisponibles = await resultado.json();
 
-        if(hora < 10 || hora > 19){
-            e.target.value = '';
-            mostrarAlerta('Hora no válida','error','.formulario');
-        }else{
-            cita.hora = e.target.value;
-        }
+        // Deshabilitar horas no disponibles
+        const horas = document.querySelectorAll('#hora option');
+
+        horas.forEach(hora => {
+            const horaDisponible = horasNoDisponibles.find(horaNoDisponible => horaNoDisponible.hora === hora.value);
+
+            if(horaDisponible){
+                hora.disabled = true;
+                hora.classList.remove('disponible');
+                hora.classList.add('disabled');
+                hora.textContent = `${hora.value} - No disponible`;
+            }else{
+                hora.disabled = false;
+                hora.classList.remove('disabled');
+                hora.textContent = hora.value;
+                hora.classList.add('disponible');
+            }
+        })        
+    }catch(error){
+        console.log(error);
+    }
+}
+
+function mostrarHoras(horas){
+    const horarios = document.querySelector('#hora');
+
+    horas.forEach(hora => {
+        const {id, hora: horaCita} = hora;
+
+        const opcion = document.createElement('OPTION');
+        opcion.value = horaCita;
+        opcion.textContent = horaCita;
+        opcion.dataset.hora_id = id;    
+        opcion.classList.add('disponible');    
+
+        horarios.appendChild(opcion);
+    })    
+}
+
+function seleccionarHora(){
+    const horarios = document.querySelector('#hora');
+
+    horarios.addEventListener('change',function(e){
+        const hora = e.target.value;
+        const id = e.target.selectedOptions[0].dataset.hora_id;
+
+        cita.hora = hora;
+        cita.hora_id = id;
     });
 }
 
@@ -314,12 +369,12 @@ function mostrarResumen(){
 }
 
 async function reservarCita(){
-    const {fecha,hora,id,servicios} = cita;
+    const {fecha,hora,hora_id,id,servicios} = cita;
     const idServicios = servicios.map(servicio => servicio.id);
     const datos = new FormData();
 
     datos.append('fecha',fecha);
-    datos.append('hora',hora);
+    datos.append('horaId',hora_id);
     datos.append('usuarioId',id);
     datos.append('servicios',idServicios);
 
