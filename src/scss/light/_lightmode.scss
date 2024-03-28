@@ -38,7 +38,8 @@
         }
 
         .formulario{
-            .campo input{
+            .campo input,
+            select{
                 background-color: $grisClarito;
                 color: v.$grisOscuro;
 

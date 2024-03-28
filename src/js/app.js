@@ -295,25 +295,27 @@ function mostrarAlerta(mensaje,tipo,elemento,desaparece = true){
 function mostrarResumen(){
     const resumen = document.querySelector('.contenido-resumen');
 
-    // Limpiar el contenido de resumen
+    // Limpiar contenido de resumen
     while(resumen.firstChild){
         resumen.removeChild(resumen.firstChild);
     }
 
-    if(Object.values(cita).includes('') || cita.servicios.length === 0){
-        mostrarAlerta('Faltan datos de Servicios, Fecha u Hora','error','.contenido-resumen',false);
+    // Validar que el objeto no tenga datos vacios
+    if (Object.values(cita).includes('') || cita.servicios.length === 0){
+        mostrarAlerta('Falta Datos de Servicios, Fecha u Hora','error','.contenido-resumen',false);
         return;
     }
 
-    // Formatear el div de resumen
+    // Formatear el Div de resumen
     const {nombre,fecha,hora,servicios} = cita;
+    console.log(cita);
 
-    //  Cabecera para servicios en resumen
+    // Heading para servicios en resumen
     const headingServicios = document.createElement('H3');
-    headingServicios.textContent = 'Resumen de Servicios';
+    headingServicios.textContent = 'Resumen Servicios';
     resumen.appendChild(headingServicios);
 
-    // Iterando y mostrando los servicios
+    // Iterando y mostrando lo Servicios
     servicios.forEach(servicio => {
         const {id,precio,nombre} = servicio;
         const contenedorServicio = document.createElement('DIV');
@@ -329,34 +331,35 @@ function mostrarResumen(){
         contenedorServicio.appendChild(precioServicio);
 
         resumen.appendChild(contenedorServicio);
-    });
-
-    //  Cabecera para cita en resumen
-    const headingCita = document.createElement('H3');
-    headingCita.textContent = 'Resumen de Cita';
-    resumen.appendChild(headingCita);
+    })
+    // sumar el total de servicios
+    const total = servicios.reduce((total, servicio) => total + parseFloat(servicio.precio), 0);
+    const totalParrafo = document.createElement('P');
+    totalParrafo.innerHTML = `<span>Total:</span> ${total}€`;
 
     const nombreCliente = document.createElement('P');
     nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
 
-    // Formatear la fecha a dd-mm-yyy
+    //Formatear la fecha a español
     const fechaObj = new Date(fecha);
     const mes = fechaObj.getMonth();
     const dia = fechaObj.getDate();
     const year = fechaObj.getFullYear();
-
-    const fechaUTC = new Date(Date.UTC(year,mes,dia));
-
-    const opciones = {weekday: 'long',year: 'numeric',month: 'long',day: 'numeric'};
-    const fechaFormateada = fechaUTC.toLocaleDateString('es-ES',opciones);
+    const fechaUTC = new Date(Date.UTC(year, mes, dia));
+    const opciones = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}
+    const fechaFormateada = fechaUTC.toLocaleDateString('es-ES', opciones);
 
     const fechaCita = document.createElement('P');
     fechaCita.innerHTML = `<span>Fecha:</span> ${fechaFormateada}`;
 
     const horaCita = document.createElement('P');
-    horaCita.innerHTML = `<span>Hora:</span> ${hora} Horas`;
+    horaCita.innerHTML = `<span>Hora:</span> ${hora}`;
 
-    // Botón para crear un cita
+    // Mostrar cantidad de servicios seleccionados
+    const cantidadServicios = document.createElement('P');
+    cantidadServicios.innerHTML = `<span>Cantidad de Servicios:</span> ${servicios.length}`;
+
+    // Boton para Crear una Cita
     const botonReservar = document.createElement('BUTTON');
     botonReservar.classList.add('boton');
     botonReservar.textContent = 'Reservar Cita';
@@ -365,18 +368,20 @@ function mostrarResumen(){
     resumen.appendChild(nombreCliente);
     resumen.appendChild(fechaCita);
     resumen.appendChild(horaCita);
+    resumen.appendChild(cantidadServicios);
+    resumen.appendChild(totalParrafo);
     resumen.appendChild(botonReservar);
 }
 
 async function reservarCita(){
-    const {fecha,hora,hora_id,id,servicios} = cita;
+    const {id,fecha,hora,hora_id,servicios} = cita;
     const idServicios = servicios.map(servicio => servicio.id);
     const datos = new FormData();
 
-    datos.append('fecha',fecha);
-    datos.append('horaId',hora_id);
-    datos.append('usuarioId',id);
-    datos.append('servicios',idServicios);
+    datos.append('usuarioId', id);
+    datos.append('fecha', fecha);
+    datos.append('horaId', hora_id);
+    datos.append('servicios', idServicios);
 
     try{
         // Petición hacia la API
@@ -388,7 +393,13 @@ async function reservarCita(){
 
         const resultado = await respuesta.json();
 
-        if(resultado.resultado){
+        if(resultado.alertas){
+            Toast.fire({
+                icon: 'error',
+                title: resultado.alertas
+            })
+            return;
+        }else{
             Swal.fire({
                 icon: 'success',
                 title: 'Cita Creada',
