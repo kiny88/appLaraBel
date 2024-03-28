@@ -8,6 +8,7 @@
         <button class="actual" type="button" data-paso="1">Servicios</button>
         <button type="button" data-paso="2">Información Cita</button>
         <button type="button" data-paso="3">Resumen</button>
+        <button type="button" data-paso="4">Ver Citas</button>
     </nav>
     <div id="paso-1" class="seccion">
         <h2>Servicios</h2>
@@ -39,6 +40,54 @@
         <h2>Resumen</h2>
         <p class="text-center">Verifica que la información sea correcta</p>
     </div>
+    <div id="paso-4" class="seccion">
+        <h2>Citas</h2>
+        <p class="text-center">Todas las citas existentes</p>
+        <?php
+            include_once __DIR__ . '/../templates/alertas.php';
+        ?>
+        <div id="citas-cliente">
+            <ul class="citas">
+                <?php
+                    $idCita = 0;
+                    foreach($citas as $key => $cita){
+                        if($idCita !== $cita->id){
+                            $total = 0;
+                ?>
+                    <li>
+                        <p>ID: <span><?php echo $cita->id; ?></span></p>
+                        <p>Fecha: <span><?php echo date('d/m/Y', strtotime($cita->fecha)); ?></span></p>
+                        <p>Hora: <span><?php echo $cita->hora; ?></span></p>
+                        <p>Cliente: <span><?php echo $cita->cliente; ?></span></p>
+                        <p>Email: <span><?php echo $cita->email; ?></span></p>
+                        <p>Teléfono: <span><?php echo $cita->telefono; ?></span></p>
+                        <h3>Servicios</h3>
+                <?php
+                    $idCita = $cita->id; 
+                    }
+
+                    $total = $total + $cita->precio;
+                ?>
+                        <p class="servicio"><?php echo $cita->servicio . ": "; ?><span><?php echo $cita->precio; ?>€</span></p>
+                    <!--</li>-->
+                <?php
+                    $actual = $cita->id;
+                    $proximo = $citas[$key + 1]->id ?? 0;
+
+                    if(esUltimo($actual,$proximo)){
+                ?>
+                    <p class="total">Total: <span><?php echo $total; ?>€</span></p>
+                    <form action="/api/eliminar" method="POST">
+                        <input type="hidden" name="id" value="<?php echo $cita->id; ?>">
+                        <input type="button" value="Cancelar Cita" class="boton-eliminar" onclick="confirmCancelarCita(form)">
+                    </form>
+                <?php 
+                        }
+                    } 
+                ?>
+            </ul>
+        </div>
+    </div>
     <div class="paginacion">
         <button id="anterior" class="boton">&laquo; Anterior</button>
         <button id="siguiente" class="boton">Siguiente &raquo;</button>
@@ -48,5 +97,5 @@
     $script = "
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
         <script src='build/js/app.js'></script>
-    ";
+        <script src='build/js/confirmaciones.js'></script>";
 ?>

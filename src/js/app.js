@@ -1,6 +1,6 @@
 let paso = 1;
 let pasoInicial = 1;
-let pasoFinal = 3;
+let pasoFinal = 4;
 
 const cita = {
     id: '',
@@ -75,14 +75,17 @@ function botonesPaginador(){
     if(paso === 1){
         paginaAnterior.classList.add('ocultar');
         paginaSiguiente.classList.remove('ocultar');
+    }else if(paso === 2){
+        paginaAnterior.classList.remove('ocultar');
+        paginaSiguiente.classList.remove('ocultar');
     }else if(paso === 3){
         paginaAnterior.classList.remove('ocultar');
-        paginaSiguiente.classList.add('ocultar');
+        paginaSiguiente.classList.remove('ocultar');
 
         mostrarResumen();
     }else{
         paginaAnterior.classList.remove('ocultar');
-        paginaSiguiente.classList.remove('ocultar');
+        paginaSiguiente.classList.add('ocultar');
     }
 
     mostrarSeccion();
@@ -253,6 +256,10 @@ function mostrarHoras(horas){
 
         horarios.appendChild(opcion);
     })    
+}
+
+function mostrarCitas(citas){
+
 }
 
 function seleccionarHora(){

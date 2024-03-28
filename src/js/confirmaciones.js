@@ -30,6 +30,38 @@ function confirmEliminarCita(form){
     });
 }
 
+function confirmCancelarCita(form){
+    Swal.fire({
+        icon: 'warning',
+        title: '¿Estás seguro de cancelar la cita?',
+        text: 'Esta acción no se puede deshacer',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, cancelar cita',
+        cancelButtonText: 'Cancelar'
+    })
+    .then((result) => {
+        if(result.isConfirmed){
+            Swal.fire({
+                icon: 'success',
+                title: 'Cita Cancelada',
+                text: 'La cita fue cancelada correctamente',
+                button: 'OK'
+            })
+            .then(() => {
+                form.submit();
+            });
+        }else if(result.isDenied){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un error al cancelar la cita'
+            });
+        }
+    });
+}
+
 function confirmEliminarServicio(form){
     Swal.fire({
         icon: 'warning',

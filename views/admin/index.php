@@ -12,11 +12,6 @@
     </form>
 </div>
 <?php
-    /*if(count($citas) === 0){
-        echo "<h2>No hay citas en esta fecha</h2>";
-    }*/
-?>
-<?php
     include_once __DIR__ . "/../templates/alertas.php";
 ?>
 <div id="citas-admin">
@@ -29,6 +24,7 @@
         ?>
             <li>
                 <p>ID: <span><?php echo $cita->id; ?></span></p>
+                <p>Fecha: <span><?php echo date('d/m/Y', strtotime($fecha)); ?></span></p>
                 <p>Hora: <span><?php echo $cita->hora; ?></span></p>
                 <p>Cliente: <span><?php echo $cita->cliente; ?></span></p>
                 <p>Email: <span><?php echo $cita->email; ?></span></p>
