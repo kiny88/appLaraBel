@@ -40,7 +40,7 @@
 
             $total = $total + $cita->precio;
         ?>
-                <p class="servicio"><?php echo $cita->servicio . ": "; ?><span><?php echo $cita->precio; ?></span></p>
+                <p class="servicio"><?php echo $cita->servicio . ": "; ?><span><?php echo $cita->precio; ?>€</span></p>
             <!--</li>-->
         <?php
             $actual = $cita->id;
